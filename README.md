@@ -16,6 +16,7 @@ First, intall the dependencies
 
 
 ## Usage
+To run from the command line:
 Run the eval script
 ```bash
   python eval.py
