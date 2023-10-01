@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+
 class BarPlot():
     def __init__(self, categories, initial_heights, x_label, y_label, title):
         self.categories = categories
@@ -8,10 +9,10 @@ class BarPlot():
         self.x_label = x_label
         self.y_label = y_label
         self.title = title
-        
+
         self.fig, self.ax = plt.subplots()
         self.bars = self.ax.bar(self.categories, self.initial_heights)
-    
+
     def draw(self):
         self.update_heights()
         plt.xlabel(self.x_label)
@@ -20,7 +21,7 @@ class BarPlot():
         plt.show(block=False)
         plt.draw()
         plt.pause(0.001)
-    
+
     def update_heights(self):
         for bar, height in zip(self.bars, self.heights):
             bar.set_height(height)

@@ -6,7 +6,7 @@ from Agents.DQNAgent import DQNAgent
 from NueralNetworks.OneHiddenFeedForward import OneHiddenFF
 from Plots.RockPaperScissorsTracker import RPSTracker
 from Plots.PlotWinRates import plotWinRate
-#----------------------------------------------------------------------------------------------- Module Globals
+# ----------------------------------------------------------------------------------------------- Module Globals
 SAVE_FILE = 'RockPaperScissorsEval.PNG'
 CATEGORIES = ['Wins', 'Ties', 'Losses']
 INITIAL_HEIGHTS = [0, 0, 0]
@@ -18,7 +18,7 @@ EPISODES = 100
 GAMES_PER_EPISODE = 100
 
 
-#---------------------------------------------------------------------------------------------------- Hyperparamaters
+# ---------------------------------------------------------------------------------------------------- Hyperparamaters
 GAMMA = 0.99
 EPSILON = 1.0
 BATCH_SIZE = 64
@@ -29,28 +29,35 @@ LR = 0.001
 
 HIDDEN_DIMS = [256, 256]
 
-#---------------------------------------------------------------------------------------------------- Classes/Functions
+# ---------------------------------------------------------------------------------------------------- Classes/Functions
+
+
 def one_hot_encode(move):
     one_hot = np.zeros(3)
     one_hot[move] = 1
     return one_hot
 
+
 class OneHiddenDQNAgent(DQNAgent):
     ''' Give the DQN'''
+
     def __init__(self, hidden_dims, *args, **kwargs):
         super(OneHiddenDQNAgent, self).__init__(*args, **kwargs)
         self.hidden_dims = hidden_dims
-        self.Q_eval = OneHiddenFF(self.lr, self.input_dims, *hidden_dims, self.n_actions)
+        self.Q_eval = OneHiddenFF(
+            self.lr, self.input_dims, *hidden_dims, self.n_actions)
 
-#-------------------------------------------------------------------------------------------------- main
+
+# -------------------------------------------------------------------------------------------------- main
 if __name__ == "__main__":
     tracker = RPSTracker(CATEGORIES, INITIAL_HEIGHTS, X_LABEL, Y_LABEL, TITLE)
     # Initialize player DQN agent in "train" mode
-    random.seed(31415926) # For Repeatability
-    player = OneHiddenDQNAgent(HIDDEN_DIMS, gamma = GAMMA, epsilon = EPSILON, batch_size = BATCH_SIZE,
-                               n_actions=3, eps_dec = EPS_DEC, eps_end = EPS_END, input_dims = [INPUT_DIMS], lr=LR)
+    random.seed(31415926)  # For Repeatability
+    player = OneHiddenDQNAgent(HIDDEN_DIMS, gamma=GAMMA, epsilon=EPSILON, batch_size=BATCH_SIZE,
+                               n_actions=3, eps_dec=EPS_DEC, eps_end=EPS_END, input_dims=[INPUT_DIMS], lr=LR)
     # Init Opponent with arbitrary learn rate
-    opponent = OneHiddenFF(lr = 0.001, input_dims=[INPUT_DIMS], hidden_dim_1=HIDDEN_DIMS[0], hidden_dim_2=HIDDEN_DIMS[1], n_actions=3)
+    opponent = OneHiddenFF(lr=0.001, input_dims=[
+                           INPUT_DIMS], hidden_dim_1=HIDDEN_DIMS[0], hidden_dim_2=HIDDEN_DIMS[1], n_actions=3)
     # set oppenent state
     opponent_state = one_hot_encode(random.randint(0, 2))
     # get opponent action
@@ -77,7 +84,8 @@ if __name__ == "__main__":
                 tracker.reset()
                 done = True
             # learn
-            player.store_transition(state, player_action, reward, next_state, done)
+            player.store_transition(
+                state, player_action, reward, next_state, done)
             loss = player.learn()
             # set state to next state
             state = next_state

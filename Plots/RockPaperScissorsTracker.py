@@ -6,7 +6,8 @@ PAPER = 2
 
 WIN_REWARD = 1
 LOSE_PUNISHMENT = -1
-TIE_PUNISHMENT = -0.25 
+TIE_PUNISHMENT = -0.25
+
 
 class RPSTracker(BarPlot):
     def __init__(self, *args, **kwargs):
@@ -14,10 +15,10 @@ class RPSTracker(BarPlot):
         # Score formated as Wins, ties, losses
         self.score = [0, 0, 0]
         self.games = 0
-        
+
         self.win_rates = []
         self.episode = 0
-    
+
     def decide_winner(self, player_action, oppenent_action):
         self.games += 1
         # Rock, Paper, Scissors logic
@@ -45,10 +46,10 @@ class RPSTracker(BarPlot):
         self.heights = self.score
         self.title = f"Games: {self.games}, Episodes: {self.episode + 1}"
         return reward
-    
+
     def reset(self):
         self.episode += 1
         self.win_rates.append((self.score[0] / self.games))
-        
+
         self.games = 0
         self.score = [0, 0, 0]
