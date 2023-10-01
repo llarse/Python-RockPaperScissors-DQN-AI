@@ -21,13 +21,13 @@ GAMES_PER_EPISODE = 100
 
 
 # ---------------------------------------------------------------------------------------------------- Hyperparamaters
-GAMMA = 0.99
-EPSILON = 1.0
+GAMMA = 0.99  # Discount factor
+EPSILON = 1.0  # Starting Epsilon
 BATCH_SIZE = 64
-EPS_DEC = 5e-4
-EPS_END = 0.001
+EPS_DEC = 5e-4  # Epsilon decay rate
+EPS_END = 0.001  # Ending epsioln
 INPUT_DIMS = 3
-LR = 0.001
+LR = 0.001  # learning rate
 
 HIDDEN_DIMS = [256, 256]
 

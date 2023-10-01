@@ -41,6 +41,7 @@ class DQNAgent:
         self.mem_cntr += 1
 
     def choose_action(self, observation):
+        # Epsilon-greedy
         if np.random.random() > self.epsilon:
             # Exploit - take action based on a forward pass to the network
             state = torch.tensor(np.array(observation),
