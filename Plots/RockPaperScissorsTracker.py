@@ -21,8 +21,9 @@ class RPSTracker(BarPlot):
 
     def decide_winner(self, player_action, oppenent_action):
         self.games += 1
-        # Rock, Paper, Scissors logic
         reward = 0
+
+        # Rock, Paper, Scissors logic
         # Win
         if (
             (player_action == ROCK and oppenent_action == SCISSORS)
@@ -31,18 +32,16 @@ class RPSTracker(BarPlot):
         ):
             reward = WIN_REWARD
             self.score[0] += 1
-        # Lose
-        elif (
-            (player_action == ROCK and oppenent_action == PAPER)
-            or (player_action == SCISSORS and oppenent_action == ROCK)
-            or (player_action == PAPER and oppenent_action == SCISSORS)
-        ):
-            reward = LOSE_PUNISHMENT
-            self.score[2] += 1
         # Tie
-        else:
+        elif (player_action == oppenent_action):
             reward = TIE_PUNISHMENT
             self.score[1] += 1
+        # Lose
+        else:
+            reward = LOSE_PUNISHMENT
+            self.score[2] += 1
+
+        # update visual data
         self.heights = self.score
         self.title = f"Games: {self.games}, Episodes: {self.episode + 1}"
         return reward

@@ -27,12 +27,17 @@ class OneHiddenFF(nn.Module):
         self.to(self.device)
 
     def forward(self, state):
+        ''' Forward pass 
+            Returns: probabilities of actions'''
+        # Perform passes as sequental
         x = functional.relu(self.input_layer(state))
         x = functional.relu(self.hidden_layer(x))
         actions = self.output_layer(x)
         return actions
 
     def forwardInterface(self, state):
+        ''' Interface function for forward pass
+            Returns: singular action'''
         call = self.forward(torch.tensor(
             state, dtype=torch.float32).to(self.device))
         return torch.argmax(call).item()

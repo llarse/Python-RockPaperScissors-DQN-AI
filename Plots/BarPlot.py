@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 
 
 class BarPlot():
+    ''' General Bar plot class for matplotlib'''
+
     def __init__(self, categories, initial_heights, x_label, y_label, title):
         self.categories = categories
         self.initial_heights = initial_heights

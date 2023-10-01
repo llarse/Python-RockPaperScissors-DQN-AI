@@ -7,6 +7,7 @@ from NueralNetworks.OneHiddenFeedForward import OneHiddenFF
 from Plots.RockPaperScissorsTracker import RPSTracker
 from Plots.PlotWinRates import plotWinRate
 # ----------------------------------------------------------------------------------------------- Module Globals
+# Plot globals
 SAVE_FILE = 'RockPaperScissorsEval.PNG'
 CATEGORIES = ['Wins', 'Ties', 'Losses']
 INITIAL_HEIGHTS = [0, 0, 0]
@@ -14,6 +15,7 @@ X_LABEL = 'Progress'
 Y_LABEL = 'Frequency'
 TITLE = 'Games: 0, Episode: 0'
 
+# Game globals
 EPISODES = 100
 GAMES_PER_EPISODE = 100
 
@@ -33,13 +35,16 @@ HIDDEN_DIMS = [256, 256]
 
 
 def one_hot_encode(move):
+    ''' one hot encodes move
+    args: move = ROCK, PAPER, or SCISSORS'
+    retuns: one_hot = [1,0,0] where the 1 is in the place of the move'''
     one_hot = np.zeros(3)
     one_hot[move] = 1
     return one_hot
 
 
 class OneHiddenDQNAgent(DQNAgent):
-    ''' Give the DQN'''
+    ''' Give the DQNAgent a network to train'''
 
     def __init__(self, hidden_dims, *args, **kwargs):
         super(OneHiddenDQNAgent, self).__init__(*args, **kwargs)
