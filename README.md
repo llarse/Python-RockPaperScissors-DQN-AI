@@ -3,6 +3,7 @@
 
 This project uses PyTorch to build a Deep Q network that can predict the next move of an opponent. Both the opponent and player are built as Feed Forward networks with one hidden layer. The player is trained with the DQNagent based on the opponents last move and the opponent network is left initialized to random states.
 
+This is part of my "Built on my day off" project series so there are bound to be overlooked pieces
 
 
 ## Installation
